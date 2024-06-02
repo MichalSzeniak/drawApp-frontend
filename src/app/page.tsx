@@ -1,12 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import {
-  QueryClient,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { addData, fetchData } from "../../server/actions";
 import { useEffect, useState } from "react";
 import useAuthStore from "@/lib/authstore";
@@ -30,7 +24,7 @@ export default function Home() {
     setNewData("");
   };
 
-  const { login, logout, isLoggedIn, user } = useAuthStore();
+  const { login, isLoggedIn, user } = useAuthStore();
 
   console.log(user);
 
@@ -60,7 +54,6 @@ export default function Home() {
       />
       <button onClick={handleAddData}>Add Data</button>
       <button onClick={login}>login</button>
-      <button onClick={logout}>logout</button>
     </main>
   );
 }
