@@ -8,7 +8,8 @@ import {
   useQueryClient,
 } from "react-query";
 import { addData, fetchData } from "../../server/actions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useAuthStore from "@/lib/authstore";
 
 export default function Home() {
   const [newData, setNewData] = useState("");
@@ -29,8 +30,18 @@ export default function Home() {
     setNewData("");
   };
 
+  const { login, logout, isLoggedIn, user } = useAuthStore();
+
+  console.log(user);
+
+  useEffect(() => {
+    console.log(isLoggedIn);
+  }, [isLoggedIn]);
+
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error: {error.message}</div>;
+
+  console.log(isLoggedIn);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -48,6 +59,8 @@ export default function Home() {
         placeholder="New Data"
       />
       <button onClick={handleAddData}>Add Data</button>
+      <button onClick={login}>login</button>
+      <button onClick={logout}>logout</button>
     </main>
   );
 }
